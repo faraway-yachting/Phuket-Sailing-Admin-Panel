@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import API_BASE_URL from "@/lib/config/api";
 
 export interface AddTagsPayload {
   name: string;
@@ -69,7 +70,7 @@ export const addTags = createAsyncThunk<
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://awais.thedevapp.online/tags/add-tag",
+        `${API_BASE_URL}/tags/add-tag`,
         credentials,
         {
           withCredentials: true,
@@ -105,7 +106,7 @@ export const getTags = createAsyncThunk<
   async (params, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      let queryString = "https://awais.thedevapp.online/tags/all-tags";
+      let queryString = `${API_BASE_URL}/tags/all-tags`;
       if (params && (params.page || params.limit)) {
         const queryParams = new URLSearchParams();
         if (params.page) queryParams.append('page', params.page.toString());
@@ -145,7 +146,7 @@ export const getTagsById = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://awais.thedevapp.online/tags/tagByID?id=${tagsId}`,
+        `${API_BASE_URL}/tags/tagByID?id=${tagsId}`,
         {
           withCredentials: true,
           headers: {
@@ -174,7 +175,7 @@ export const updateTags = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        `https://awais.thedevapp.online/tags/edit-tag?id=${tagsId}`,
+        `${API_BASE_URL}/tags/edit-tag?id=${tagsId}`,
         payload,
         {
           withCredentials: true,
@@ -212,7 +213,7 @@ export const deleteTags = createAsyncThunk<
     try {
       const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `https://awais.thedevapp.online/tags/delete-tag?id=${id}`,
+        `${API_BASE_URL}/tags/delete-tag?id=${id}`,
         {
           withCredentials: true,
           headers: {

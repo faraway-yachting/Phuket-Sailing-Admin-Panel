@@ -107,11 +107,7 @@ const Header: React.FC = () => {
           </div>
           <div className="relative" ref={dropdownRef}>
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-              <Image src="/images/logoo.png" alt="bell" width={43} height={43} className="w-[43px] h-[43px]" />
-              <div className="flex flex-col gap-1">
-                <h1 className="text-[#001B48] font-bold">FarAway</h1>
-                <p className="text-[#222222] font-normal text-[14px]">Yachting</p>
-              </div>
+              <Image src="/images/logo.png" alt="bell" width={100} height={60} className="w-[100%] h-[60px]" />
             </div>
             {isOpen && (
               <div className="absolute right-0 mt-1 bg-white border border-[#C4C4C4] rounded w-full shadow-md z-10">

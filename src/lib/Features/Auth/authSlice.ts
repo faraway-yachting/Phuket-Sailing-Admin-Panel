@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import API_BASE_URL from "@/lib/config/api";
 
 interface Credentials {
   email: string;
@@ -24,7 +25,7 @@ interface ResetPasswordData {
   newPassword: string;
 }
 
-const API_URL = `https://awais.thedevapp.online`;
+const API_URL = API_BASE_URL;
 
 export const signinUser = createAsyncThunk(
   "auth/signinUser",
