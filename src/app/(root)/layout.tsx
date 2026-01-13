@@ -11,7 +11,6 @@ interface Props {
 }
 
 const IndexLayout: React.FC<Props> = ({ children }) => {
-
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
