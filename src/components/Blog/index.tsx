@@ -201,7 +201,7 @@ const BlogDetail = () => {
             No data available.
           </div>
         ) : allBlogs?.length > 0 ? (
-          <div className="grid grid-cols-3 gap-7 mt-[12px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-7 mt-[12px]">
             {currentItems.map((blogItem, blogIndex) => {
               return (
                 <div key={blogIndex} className="group cursor-pointer mb-3 pb-5 border border-gray-300 rounded-tl-3xl rounded-b-lg overflow-hidden bg-white hover:shadow-2xl hover:scale-[1.03] transition-transform duration-300" >
@@ -209,13 +209,13 @@ const BlogDetail = () => {
                     className="w-full cursor-pointer"
                     onClick={() => router.push(`/blog/${blogItem._id}`)}
                   >
-                    <div className="hidden md:block relative rounded-tl-3xl rounded-br-3xl w-full overflow-hidden">
+                    <div className="relative rounded-tl-3xl rounded-br-3xl w-full overflow-hidden">
                       <Image
                         src={typeof blogItem?.image === 'string' ? blogItem.image : '/images/placeholder.jpg'}
                         alt="Blog image"
                         width={450}
                         height={258}
-                        className="w-full h-[270px] object-cover "
+                        className="w-full h-[200px] sm:h-[240px] lg:h-[270px] object-cover"
                       />
                       <div className="absolute top-3 right-4 z-10">
                         <button
@@ -225,15 +225,15 @@ const BlogDetail = () => {
                           <FaTrash className="text-white text-lg" />
                         </button>
                       </div>
-                      <div className="absolute bottom-0 bg-[#001B48] w-full py-4 rounded-tl-4xl">
-                        <h3 className="font-plusjakarta font-extrabold text-center text-base md:text-lg lg:text-xl text-white leading-tight px-4">
+                      <div className="absolute bottom-0 bg-[#001B48] w-full py-3 sm:py-4 rounded-tl-4xl">
+                        <h3 className="font-plusjakarta font-extrabold text-center text-sm sm:text-base md:text-lg lg:text-xl text-white leading-tight px-3 sm:px-4">
                           {blogItem.title && blogItem.title.length > 27 ? `${blogItem.title.substring(0, 27)}...` : blogItem.title || 'Untitled'}
                         </h3>
                       </div>
                     </div>
-                    <div className="pt-[4px] px-4 flex flex-col h-50">
-                      <p className="font-plusjakarta font-normal text-base lg:text-lg text-[#666666] mt-2 flex-1 overflow-hidden line-clamp-3">{blogItem.shortDescription && blogItem.shortDescription.length > 200 ? `${blogItem.shortDescription.substring(0, 200)}...` : blogItem.shortDescription || 'No description available'}</p>
-                      <div className="flex items-center justify-center gap-2 mt-3">
+                    <div className="pt-[4px] px-3 sm:px-4 flex flex-col h-50">
+                      <p className="font-plusjakarta font-normal text-sm sm:text-base lg:text-lg text-[#666666] mt-2 flex-1 overflow-hidden line-clamp-3">{blogItem.shortDescription && blogItem.shortDescription.length > 200 ? `${blogItem.shortDescription.substring(0, 200)}...` : blogItem.shortDescription || 'No description available'}</p>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mt-3">
                         <button
                           onClick={(e) => {
                             const currentStatus = blogItem.status || "draft";
@@ -244,7 +244,7 @@ const BlogDetail = () => {
                             }
                           }}
                           disabled={publishingYachtId === blogItem._id}
-                          className={`px-[22px] py-[7px] rounded-full text-center font-medium flex items-center gap-1
+                          className={`w-full sm:w-auto px-[22px] py-[7px] rounded-full text-center font-medium flex items-center justify-center gap-1
                                ${publishingYachtId === blogItem._id
                               ? "bg-[#012A50] text-white cursor-not-allowed"
                               : "bg-[#012A50] hover:bg-[#5F5C63] text-white cursor-pointer"

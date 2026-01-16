@@ -112,34 +112,67 @@ const TagsDetail = () => {
               No data available.
             </div>
           ) : allTags?.length > 0 ? (
-            <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-              <table className="w-full border-collapse table-fixed">
-                <thead className="bg-[#012A50] text-white">
-                  <tr>
-                    <th className="w-1/4 px-4 py-3 text-left">Name</th>
-                    <th className="w-1/4 px-4 py-3 text-left">Slug</th>
-                    <th className="w-1/3 px-4 py-3 text-left">Description</th>
-                    <th className="px-4 py-3 text-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentItems.map((tag, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => router.push(`/tags/${tag._id}`)}
-                      className="hover:bg-gray-50 transition-colors cursor-pointer"
-                    >
-                      <td className="px-4 py-3 font-medium text-[#012A50]">
-                        {tag.Name}
-                      </td>
-                      <td className="px-4 py-3 text-gray-700">{tag.Slug}</td>
-                      <td className="px-4 py-3 text-gray-600">
-                        <div title={tag.Description}>
-                          {truncateToWords(tag.Description)}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 flex items-center justify-center gap-4">
-                        <button onClick={() => router.push(`/tags/${tag._id}`)} className="text-blue-500 hover:text-blue-700 cursor-pointer">
+            <>
+              {/* Desktop Table View */}
+              <div className="hidden md:block overflow-x-auto bg-white shadow-md rounded-lg">
+                <table className="w-full border-collapse table-fixed">
+                  <thead className="bg-[#012A50] text-white">
+                    <tr>
+                      <th className="w-1/4 px-4 py-3 text-left">Name</th>
+                      <th className="w-1/4 px-4 py-3 text-left">Slug</th>
+                      <th className="w-1/3 px-4 py-3 text-left">Description</th>
+                      <th className="px-4 py-3 text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentItems.map((tag, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => router.push(`/tags/${tag._id}`)}
+                        className="hover:bg-gray-50 transition-colors cursor-pointer border-b"
+                      >
+                        <td className="px-4 py-3 font-medium text-[#012A50]">
+                          {tag.Name}
+                        </td>
+                        <td className="px-4 py-3 text-gray-700">{tag.Slug}</td>
+                        <td className="px-4 py-3 text-gray-600">
+                          <div title={tag.Description}>
+                            {truncateToWords(tag.Description)}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 flex items-center justify-center gap-4">
+                          <button onClick={() => router.push(`/tags/${tag._id}`)} className="text-blue-500 hover:text-blue-700 cursor-pointer">
+                            <FaEye size={18} />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setYachtsToDelete(tag._id);
+                              setIsModalOpen(true);
+                            }}
+                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                          >
+                            <MdDelete size={18} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              
+              {/* Mobile Card View */}
+              <div className="md:hidden space-y-3">
+                {currentItems.map((tag, index) => (
+                  <div
+                    key={index}
+                    onClick={() => router.push(`/tags/${tag._id}`)}
+                    className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-bold text-[#012A50] text-lg">{tag.Name}</h3>
+                      <div className="flex gap-2">
+                        <button onClick={() => router.push(`/tags/${tag._id}`)} className="text-blue-500 p-2">
                           <FaEye size={18} />
                         </button>
                         <button
@@ -148,16 +181,22 @@ const TagsDetail = () => {
                             setYachtsToDelete(tag._id);
                             setIsModalOpen(true);
                           }}
-                          className="text-red-500 hover:text-red-700 cursor-pointer"
+                          className="text-red-500 p-2"
                         >
                           <MdDelete size={18} />
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-1">
+                      <span className="font-medium">Slug:</span> {tag.Slug}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Description:</span> {truncateToWords(tag.Description)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </>
           ) : (
             <div className="flex items-center justify-center h-[calc(100vh-14.1rem)] text-lg text-[#012A50]">
               No tags available.

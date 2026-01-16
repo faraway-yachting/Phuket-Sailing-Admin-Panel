@@ -632,40 +632,40 @@ const RichTextEditor: React.FC<RichTextEditorOneProps> = ({ value = "", onChange
             const img = document.createElement("img")
             img.src = imageUrl
             img.alt = "Uploaded Image"
-            img.style.maxWidth = "100%" // Ensure it doesn't overflow initially
+            img.style.maxWidth = "100%" // Ensure it doesn't overflow
             img.style.height = "auto"
-            img.style.display = "block" // Make it a block element for easier positioning
-            img.style.minWidth = "50px" // Ensure minimum size for visibility
-            img.style.minHeight = "50px" // Ensure minimum size for visibility
+            img.style.display = "block" // Block element for proper flow
+            img.style.margin = "1.5rem auto" // Center with spacing
+            img.style.borderRadius = "12px" // Rounded corners
+            img.style.minWidth = "50px" // Minimum size for visibility
+            img.style.minHeight = "50px"
 
-            // Insert the image temporarily to get its natural position
+            // Insert the image at cursor position
             range.deleteContents() // Remove any selected content
             range.insertNode(img)
 
-            // Get the image's position relative to the editorWrapperRef
-            const imgRect = img.getBoundingClientRect()
-            const editorWrapperRect = editorWrapperRef.current.getBoundingClientRect()
-
-            // Calculate initial absolute position
-            const initialLeft = imgRect.left - editorWrapperRect.left + editorWrapperRef.current.scrollLeft
-            const initialTop = imgRect.top - editorWrapperRect.top + editorWrapperRef.current.scrollTop
-
-            // Now set its position to absolute
-            img.style.position = "absolute"
-            img.style.left = `${initialLeft}px`
-            img.style.top = `${initialTop}px`
-
-            // Set the selected image
-            setSelectedImage(img)
+            // Create a new paragraph after the image for continued typing
+            const newParagraph = document.createElement("p")
+            newParagraph.innerHTML = "<br>"
+            
+            // Insert paragraph after image
+            if (img.nextSibling) {
+              img.parentNode?.insertBefore(newParagraph, img.nextSibling)
+            } else {
+              img.parentNode?.appendChild(newParagraph)
+            }
 
             // Update content state
             setEditorContent(editorRef.current.innerHTML)
 
-            // Move cursor after the image
-            range.setStartAfter(img)
-            range.collapse(true)
+            // Move cursor to the new paragraph
+            const newRange = document.createRange()
+            newRange.selectNodeContents(newParagraph)
+            newRange.collapse(true)
             selection.removeAllRanges()
-            selection.addRange(range)
+            selection.addRange(newRange)
+            
+            editorRef.current.focus()
           }
         }
         reader.readAsDataURL(file)
@@ -1603,7 +1603,7 @@ const RichTextEditor: React.FC<RichTextEditorOneProps> = ({ value = "", onChange
         <div
           ref={editorRef}
           contentEditable
-          className="h-[300px] overflow-y-auto p-6 focus:outline-none"
+          className="h-[300px] overflow-y-auto p-6 focus:outline-none editor-content"
           style={{
             lineHeight: "1.6",
             fontSize: "14px",
