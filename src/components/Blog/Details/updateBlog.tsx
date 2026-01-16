@@ -340,10 +340,10 @@ const BlogUpdate: React.FC<CustomerProps> = ({ goToPrevTab, id }) => {
         </div>
       
         {/* Action Buttons */}
-        <div className="mt-3 flex justify-between">
+        <div className="mt-3 flex flex-col sm:flex-row justify-between gap-3">
           <button
             onClick={goToPrevTab}
-            className="rounded-full px-[16px] py-[7px] border border-[#666666] text-[#222222] flex items-center gap-1 justify-center cursor-pointer font-medium"
+            className="rounded-full px-[16px] py-[7px] border border-[#666666] text-[#222222] flex items-center gap-1 justify-center cursor-pointer font-medium w-full sm:w-auto"
           >
             <MdKeyboardArrowLeft />
             Back
@@ -351,7 +351,7 @@ const BlogUpdate: React.FC<CustomerProps> = ({ goToPrevTab, id }) => {
           <button
             type="submit"
             disabled={loading}
-            className={`rounded-full px-[16px] py-[7px] bg-[#012A50] hover:bg-[#5F5C63] text-white text-center cursor-pointer font-medium flex items-center gap-2 ${loading ? "cursor-not-allowed" : "cursor-pointer"
+            className={`rounded-full px-[16px] py-[7px] bg-[#012A50] hover:bg-[#5F5C63] text-white text-center cursor-pointer font-medium flex items-center justify-center gap-2 w-full sm:w-auto ${loading ? "cursor-not-allowed" : "cursor-pointer"
               }`}
           >
             {loading ? "Save ..." : <><Tick /> Save</>}

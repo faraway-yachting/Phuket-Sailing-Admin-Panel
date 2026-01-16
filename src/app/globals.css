@@ -58,3 +58,32 @@ input[type="number"]::-ms-clear {
 input[type="number"]::-ms-reveal {
   display: none;
 }
+
+/* Blog detail rich-content images */
+.blog-content img {
+  max-width: 100% !important;
+  width: auto !important;
+  max-height: 400px !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1.5rem auto !important;
+  border-radius: 12px !important;
+  object-fit: cover !important;
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+/* Force images in the editor to be positioned normally */
+.editor-content img {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1.5rem auto !important;
+  border-radius: 12px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
+}

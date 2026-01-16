@@ -29,6 +29,7 @@ const Drawer: React.FC<Props> = ({ menus, isOpen, onClose }) => {
         if (link) {
             router.push(link);
         }
+        onClose(); // Close drawer after navigation
     };
 
     return (
