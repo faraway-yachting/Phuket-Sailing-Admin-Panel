@@ -70,7 +70,7 @@ const Header: React.FC = () => {
   const screen = screenMap[screenKey];
 
   return (
-    <header className="fixed top-0 left-0 bg-white shadow-lg lg:rounded-tl-[31px] lg:left-[200px] xl:left-[240px] 2xl:left-[260px] px-[30px] right-0 z-20 py-3 lg:py-3 2xl:py-4">
+    <header className="fixed top-0 left-0 bg-white shadow-lg lg:rounded-tl-[31px] lg:left-[200px] xl:left-[240px] 2xl:left-[260px] px-4 sm:px-[30px] right-0 z-20 py-3 lg:py-3 2xl:py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span
@@ -90,12 +90,12 @@ const Header: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="hidden sm:flex items-center gap-4">
-          <div className="border border-[#999999] w-[200px] md:w-[250px] xl:w-[350px] h-[40px] bg-white flex items-center rounded-full px-3 justify-between gap-1">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="hidden sm:flex border border-[#999999] w-[200px] md:w-[250px] xl:w-[350px] h-[40px] bg-white items-center rounded-full px-3 justify-between gap-1">
             <input type="text" placeholder="Search something here..." className="placeholder:text-[#999999] w-full outline-none text-[#222222]" />
             <IoSearchSharp className="text-[#999999] text-[24px] cursor-pointer" />
           </div>
-          <div className="bg-white shadow-lg w-[43px] h-[43px] rounded-full flex items-center justify-center cursor-pointer relative">
+          <div className="bg-white shadow-lg w-[38px] h-[38px] sm:w-[43px] sm:h-[43px] rounded-full flex items-center justify-center cursor-pointer relative">
             <Image 
               src="/images/bell.svg" 
               alt="bell" 
@@ -103,15 +103,11 @@ const Header: React.FC = () => {
               height={19} 
               className="w-4 h-5"
             />
-            <div className="absolute w-[24px] h-[24px] bg-[#001B48] rounded-full -top-2 -right-2 text-white font-inter font-semibold text-[12px] flex items-center justify-center">10</div>
+            <div className="absolute w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] bg-[#001B48] rounded-full -top-1 -right-1 sm:-top-2 sm:-right-2 text-white font-inter font-semibold text-[10px] sm:text-[12px] flex items-center justify-center">10</div>
           </div>
           <div className="relative" ref={dropdownRef}>
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-              <Image src="/images/logoo.png" alt="bell" width={43} height={43} className="w-[43px] h-[43px]" />
-              <div className="flex flex-col gap-1">
-                <h1 className="text-[#001B48] font-bold">FarAway</h1>
-                <p className="text-[#222222] font-normal text-[14px]">Yachting</p>
-              </div>
+              <Image src="/images/logo.png" alt="Logo" width={100} height={60} className="w-[70px] sm:w-[100px] h-auto" />
             </div>
             {isOpen && (
               <div className="absolute right-0 mt-1 bg-white border border-[#C4C4C4] rounded w-full shadow-md z-10">

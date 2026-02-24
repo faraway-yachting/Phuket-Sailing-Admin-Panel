@@ -252,23 +252,23 @@ const YachtsDetail = () => {
                 },
               ];
               return (
-                <div key={yachtIndex} className="bg-white border border-[#CECECE] rounded-lg shadow-md p-5 flex gap-4 items-center overflow-hidden" >
-                  <div className="hidden md:block relative w-[37%] overflow-hidden">
+                <div key={yachtIndex} className="bg-white border border-[#CECECE] rounded-lg shadow-md p-3 sm:p-5 flex flex-col md:flex-row gap-4 items-start md:items-center overflow-hidden" >
+                  <div className="w-full md:w-[37%] relative overflow-hidden">
                     <Image
                       src={yachtItem?.primaryImage}
                       alt="Yacht image"
                       width={300}
                       height={258}
-                      className="w-full h-[260px] object-cover rounded-lg"
+                      className="w-full h-[200px] md:h-[260px] object-cover rounded-lg"
                     />
                   </div>
-                  <div className="pt-[4px] border-r border-[#D1D1D1] pr-5 w-[70%]">
-                    <h3 className="font-plusjakarta font-extrabold text-[26px] text-[#0061B1]">{yachtItem.title}</h3>
-                    <div className="flex items-center gap-2 mt-[8px]">
+                  <div className="pt-[4px] border-r-0 md:border-r border-[#D1D1D1] pr-0 md:pr-5 w-full md:w-[70%]">
+                    <h3 className="font-plusjakarta font-extrabold text-[20px] sm:text-[24px] md:text-[26px] text-[#0061B1]">{yachtItem.title}</h3>
+                    <div className="flex flex-wrap items-center gap-2 mt-[8px]">
                       {Box.map((ft, index) => (
                         <div
                           key={index}
-                          className="flex items-center gap-2 py-[10px] px-[16px] border border-[#E8E8E8] bg-white rounded-md"
+                          className="flex items-center gap-1 sm:gap-2 py-[8px] sm:py-[10px] px-[12px] sm:px-[16px] border border-[#E8E8E8] bg-white rounded-md text-sm sm:text-base"
                           style={{ boxShadow: "0px 4px 24px 0px #B5B5B540" }}
                         >
                           {ft.img && (
@@ -320,18 +320,18 @@ const YachtsDetail = () => {
                       )}
                     </div>
                   </div>
-                  <div className="pt-[1px] flex flex-col justify-between h-[16rem] w-[30%]">
+                  <div className="pt-[1px] flex flex-col justify-between w-full md:w-[30%] mt-4 md:mt-0">
                     <div className="flex justify-end">
-                      <p className="gradient-text font-extrabold text-[22px] font-plusjakarta">{yachtItem?.capacity}</p>
+                      <p className="gradient-text font-extrabold text-[20px] sm:text-[22px] font-plusjakarta">{yachtItem?.capacity}</p>
                     </div>
                     <div className="flex flex-col items-end">
-                      <p className="text-[#3D3D3D] font-normal text-[13px] font-plusjakarta">
+                      <p className="text-[#3D3D3D] font-normal text-[12px] sm:text-[13px] font-plusjakarta">
                         Starting from
                       </p>
-                      <p className="text-[#C3974C] font-plusjakarta font-extrabold text-[23px]">
+                      <p className="text-[#C3974C] font-plusjakarta font-extrabold text-[20px] sm:text-[23px]">
                         €{yachtItem.daytripPriceEuro}
                       </p>
-                      <div className="flex items-center gap-2 mt-3">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-3 w-full md:w-auto">
                         <button
                           onClick={(e) => {
                             if (yachtItem.status === "published") {
@@ -341,7 +341,7 @@ const YachtsDetail = () => {
                             }
                           }}                            
                           disabled={publishingYachtId === yachtItem._id}
-                          className={`px-[16px] py-[7px] rounded-full text-center font-medium flex items-center gap-1
+                          className={`px-[12px] sm:px-[16px] py-[7px] rounded-full text-center font-medium flex items-center justify-center gap-1 text-sm sm:text-base w-full sm:w-auto
                                ${publishingYachtId === yachtItem._id
                               ? "bg-[#012A50] text-white cursor-not-allowed"
                               : yachtItem.status === "published"
@@ -374,14 +374,14 @@ const YachtsDetail = () => {
                           )}
                         </button>
                         <button
-                          className="px-[24px] py-[8px] cursor-pointer font-plusjakarta font-extrabold text-[15px] bg-[#001B48] hover:bg-[#5F5C63] text-white rounded-full flex items-center gap-1"
+                          className="px-[18px] sm:px-[24px] py-[8px] cursor-pointer font-plusjakarta font-extrabold text-sm sm:text-[15px] bg-[#001B48] hover:bg-[#5F5C63] text-white rounded-full flex items-center justify-center gap-1 w-full sm:w-auto"
                           onClick={() => router.push(`/yachts/${yachtItem._id}`)}
                         >
                           <FaEye className="text-sm" />
                           View
                         </button>
                         <button
-                          className="px-[24px] py-[8px] cursor-pointer font-plusjakarta font-extrabold text-[15px] bg-[#001B48] hover:bg-[#5F5C63] text-white rounded-full flex items-center gap-1"
+                          className="px-[18px] sm:px-[24px] py-[8px] cursor-pointer font-plusjakarta font-extrabold text-sm sm:text-[15px] bg-[#001B48] hover:bg-[#5F5C63] text-white rounded-full flex items-center justify-center gap-1 w-full sm:w-auto"
                           onClick={(e) => handleDeleteClick(e, yachtItem._id)}
                         >
                           <FaTrash className="text-sm" />

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import API_BASE_URL from "@/lib/config/api";
 
 export interface AddYachtsPayload {
   boatType: string;
@@ -147,7 +148,7 @@ export const addYachts = createAsyncThunk<
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://awais.thedevapp.online/yacht/add-yacht",
+        `${API_BASE_URL}/yacht/add-yacht`,
         credentials,
         {
           withCredentials: true,
@@ -185,7 +186,7 @@ export const getYachts = createAsyncThunk<
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://awais.thedevapp.online/yacht/all-yachts?page=${page}&limit=${limit}`,
+        `${API_BASE_URL}/yacht/all-yachts?page=${page}&limit=${limit}`,
         {
           withCredentials: true,
           headers: {
@@ -219,7 +220,7 @@ export const getYachtsById = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://awais.thedevapp.online/yacht?id=${yachtsId}`,
+        `${API_BASE_URL}/yacht?id=${yachtsId}`,
         {
           withCredentials: true,
           headers: {
@@ -248,7 +249,7 @@ export const updateYachts = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        `https://awais.thedevapp.online/yacht/edit-yacht?id=${yachtsId}`,
+        `${API_BASE_URL}/yacht/edit-yacht?id=${yachtsId}`,
         payload,
         {
           withCredentials: true,
@@ -286,8 +287,8 @@ export const deleteYachts = createAsyncThunk<
   async (id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        `https://awais.thedevapp.online/yacht/delete-yacht?id=${id}`,
+      const         response = await axios.delete(
+          `${API_BASE_URL}/yacht/delete-yacht?id=${id}`,
         {
           withCredentials: true,
           headers: {
@@ -324,8 +325,8 @@ export const publishYacht = createAsyncThunk<
       const payload = {
         status: status
       };
-      const response = await axios.patch(
-        `https://awais.thedevapp.online/yacht/update-status?id=${yachtId}`,
+      const         response = await axios.patch(
+          `${API_BASE_URL}/yacht/update-status?id=${yachtId}`,
         payload,
         {
           withCredentials: true,

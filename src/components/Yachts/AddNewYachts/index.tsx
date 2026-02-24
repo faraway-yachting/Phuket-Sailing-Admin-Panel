@@ -64,9 +64,9 @@ const AddNewYachts: React.FC = () => {
     const files = e.target.files;
     if (files && files[0]) {
       const file = files[0];
-      if (file.size > 1 * 1024 * 1024) {
+      if (file.size > 10 * 1024 * 1024) {
         formik.setFieldTouched("Primary Image", true, false);
-        formik.setFieldError("Primary Image", "File must be 1MB or smaller");
+        formik.setFieldError("Primary Image", "File must be 10MB or smaller");
         e.target.value = "";
         return;
       }
@@ -84,6 +84,14 @@ const AddNewYachts: React.FC = () => {
     if (files && files.length > 0) {
       const existingFiles = Array.isArray(formik.values["Gallery Images"]) ? formik.values["Gallery Images"] : [];
       const totalFiles = existingFiles.length + files.length;
+      for (const file of Array.from(files)) {
+        if (file.size > 10 * 1024 * 1024) {
+          formik.setFieldTouched("Gallery Images", true, false);
+          formik.setFieldError("Gallery Images", "File must be 10MB or smaller");
+          e.target.value = "";
+          return;
+        }
+      }
       if (totalFiles > 30) {
         formik.setFieldTouched("Gallery Images", true, false);
         formik.setFieldError("Gallery Images", "Maximum 30 images allowed");
@@ -101,9 +109,9 @@ const AddNewYachts: React.FC = () => {
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       const file = files[0];
-      if (file.size > 1 * 1024 * 1024) {
+      if (file.size > 10 * 1024 * 1024) {
         formik.setFieldTouched("Gallery Images", true, false);
-        formik.setFieldError("Gallery Images", "File must be 1MB or smaller");
+        formik.setFieldError("Gallery Images", "File must be 10MB or smaller");
         return;
       }
       formik.setFieldValue("Gallery Images", file);

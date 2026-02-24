@@ -76,73 +76,65 @@ const BlogDetails: React.FC<BlogDetailsProps> = ({ id, goToNextTab }) => {
 
   return (
     <div className="">
-      {/* Blog Image */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          {/* Blog Information */}
-          {blogInfoData.map((section, Idx) => (
-            <div key={Idx}>
-              {section.array && (
-                <div className="bg-white shadow-xs rounded-lg px-2 py-2 w-full mb-6">
-                  <p className="text-[#001B48] font-bold text-[18px] mb-2 pb-2 border-b border-[#CCCCCC]">
-                    Blog Information
-                  </p>
-                  <div className="grid grid-cols-1 gap-x-6 gap-y-4">
-                    {section.array
-                      .filter((item) => item.data !== "N/A")
-                      .map((item, idx) => (
-                        <div key={idx} className="flex">
-                          <div className="flex items-center gap-1 w-1/3">
-                            <span className="text-[#222222] font-bold">
-                              {item.label}:
-                            </span>
-                          </div>
-                          <span className="font-inter font-medium text-[#222222] w-1/2 break-words">
-                            {item.data}
-                          </span>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              )}
-              {currentBlog?.shortDescription?.trim() && (
-                <div className="bg-white shadow-xs rounded-lg px-2 py-2 w-full mb-6">
-                  <h2 className="text-[#001B48] font-bold text-[18px] mb-2 pb-2 border-b border-[#CCCCCC]">
-                    Short Description
-                  </h2>
-                  <div className="prose max-w-full">
-                    <p className="text-[#222222] font-medium leading-relaxed">
-                      {currentBlog.shortDescription}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
+      {/* Blog Primary Image */}
+      {currentBlog?.image && (
+        <div className="bg-white shadow-xs rounded-lg px-2 py-2 w-full mb-6">
+          <p className="text-[#001B48] font-bold text-[18px] mb-2 pb-2 border-b border-[#CCCCCC]">
+            Blog Image
+          </p>
+          <div className="border border-[#CCCCCC] p-1.5 rounded-lg flex justify-center">
+            <Image
+              src={currentBlog.image as string}
+              alt="Blog Image"
+              width={800}
+              height={400}
+              className="rounded-lg w-full h-auto max-h-[400px] object-cover"
+              unoptimized={true}
+            />
+          </div>
         </div>
-        <div>
-          {currentBlog?.image && (
+      )}
+
+      {/* Blog Information & Short Description */}
+      {blogInfoData.map((section, Idx) => (
+        <div key={Idx}>
+          {section.array && (
             <div className="bg-white shadow-xs rounded-lg px-2 py-2 w-full mb-6">
               <p className="text-[#001B48] font-bold text-[18px] mb-2 pb-2 border-b border-[#CCCCCC]">
-                Blog Image
+                Blog Information
               </p>
-              {currentBlog.image && (
-                <div className="border border-[#CCCCCC] p-1.5 rounded-lg flex justify-center">
-                  <Image
-                    src={currentBlog.image as string}
-                    alt="Blog Image"
-                    width={400}
-                    height={250}
-                    className="rounded-lg w-full h-auto max-h-[300px] object-cover"
-                    unoptimized={true}
-                  />
-                </div>
-              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                {section.array
+                  .filter((item) => item.data !== "N/A")
+                  .map((item, idx) => (
+                    <div key={idx} className="flex">
+                      <div className="flex items-center gap-1 w-1/3">
+                        <span className="text-[#222222] font-bold">
+                          {item.label}:
+                        </span>
+                      </div>
+                      <span className="font-inter font-medium text-[#222222] w-2/3 break-words">
+                        {item.data}
+                      </span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+          {currentBlog?.shortDescription?.trim() && (
+            <div className="bg-white shadow-xs rounded-lg px-2 py-2 w-full mb-6">
+              <h2 className="text-[#001B48] font-bold text-[18px] mb-2 pb-2 border-b border-[#CCCCCC]">
+                Short Description
+              </h2>
+              <div className="prose max-w-full">
+                <p className="text-[#222222] font-medium leading-relaxed">
+                  {currentBlog.shortDescription}
+                </p>
+              </div>
             </div>
           )}
         </div>
-      </div>
-      {/* Short Description */}
+      ))}
 
       {/* Detailed Description */}
       {currentBlog?.detailDescription?.trim() && (
@@ -151,7 +143,7 @@ const BlogDetails: React.FC<BlogDetailsProps> = ({ id, goToNextTab }) => {
             Detailed Description
           </h2>
           <div
-            className="prose max-w-full"
+            className="prose max-w-full blog-content"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(currentBlog.detailDescription || ""),
             }}
@@ -160,17 +152,17 @@ const BlogDetails: React.FC<BlogDetailsProps> = ({ id, goToNextTab }) => {
       )}
 
       {/* Action Buttons */}
-      <div className="mt-3 flex justify-between">
+      <div className="mt-3 flex flex-col sm:flex-row justify-between gap-3">
         <button
           onClick={() => router.push("/blog")}
-          className="rounded-full px-[16px] py-[7px] border border-[#666666] text-[#222222] flex items-center gap-1 justify-center cursor-pointer font-medium"
+          className="rounded-full px-[16px] py-[7px] border border-[#666666] text-[#222222] flex items-center gap-1 justify-center cursor-pointer font-medium w-full sm:w-auto"
         >
           <MdKeyboardArrowLeft />
           Back
         </button>
         <button
           onClick={goToNextTab}
-          className="rounded-full px-[16px] py-[7px] bg-[#012A50] hover:bg-[#5F5C63] text-white text-center cursor-pointer font-medium flex items-center gap-2"
+          className="rounded-full px-[16px] py-[7px] bg-[#012A50] hover:bg-[#5F5C63] text-white text-center cursor-pointer font-medium flex items-center justify-center gap-2 w-full sm:w-auto"
         >
           <MdEdit />
           Edit

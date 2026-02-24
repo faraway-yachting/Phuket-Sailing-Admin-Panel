@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import API_BASE_URL from "@/lib/config/api";
 
 // Types
 export interface Blog {
@@ -100,7 +101,7 @@ export const addBlog = createAsyncThunk<
       }
 
       const response = await axios.post(
-        "https://awais.thedevapp.online/blog/add-blog",
+        `${API_BASE_URL}/blog/add-blog`,
         formData,
         {
           withCredentials: true,
@@ -138,7 +139,7 @@ export const getBlogs = createAsyncThunk<
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `https://awais.thedevapp.online/blog/all-blogs?page=${page}&limit=${limit}`,
+        `${API_BASE_URL}/blog/all-blogs?page=${page}&limit=${limit}`,
         {
           withCredentials: true,
           headers: {
@@ -175,7 +176,7 @@ export const getBlogById = createAsyncThunk<
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        `https://awais.thedevapp.online/blog/blogByID?id=${blogId}`,
+        `${API_BASE_URL}/blog/blogByID?id=${blogId}`,
         {
           withCredentials: true,
           headers: { Authorization: `Bearer ${token}` },
@@ -237,7 +238,7 @@ export const updateBlog = createAsyncThunk<
       }
 
       const response = await axios.put(
-        `https://awais.thedevapp.online/blog/edit-blog?id=${blogId}`,
+        `${API_BASE_URL}/blog/edit-blog?id=${blogId}`,
         formData,
         {
           withCredentials: true,
@@ -294,7 +295,7 @@ export const deleteBlog = createAsyncThunk<
       try {
         // Try yacht-style endpoint
         response = await axios.delete(
-          `https://awais.thedevapp.online/blog/delete-blog?id=${blogId}`,
+          `${API_BASE_URL}/blog/delete-blog?id=${blogId}`,
           {
             withCredentials: true,
             headers: {
@@ -305,7 +306,7 @@ export const deleteBlog = createAsyncThunk<
       } catch {
         // Try blog-specific endpoint
         response = await axios.delete(
-          `https://awais.thedevapp.online/blog/delete-blog/${blogId}`,
+          `${API_BASE_URL}/blog/delete-blog/${blogId}`,
           {
             withCredentials: true,
             headers: {
@@ -351,7 +352,7 @@ export const publishBlog = createAsyncThunk<
       try {
         // Try yacht-style endpoint
         response = await axios.patch(
-          `https://awais.thedevapp.online/blog/update-status?id=${blogId}`,
+          `${API_BASE_URL}/blog/update-status?id=${blogId}`,
           { status },
           {
             withCredentials: true,
@@ -365,7 +366,7 @@ export const publishBlog = createAsyncThunk<
         try {
           // Try blog-specific endpoint
           response = await axios.patch(
-            `https://awais.thedevapp.online/blog/update-status${blogId}`,
+            `${API_BASE_URL}/blog/update-status${blogId}`,
             { status },
             {
               withCredentials: true,
@@ -378,7 +379,7 @@ export const publishBlog = createAsyncThunk<
         } catch {
           // Try using the update-blog endpoint with status
           response = await axios.put(
-            `https://awais.thedevapp.online/blog/update-status${blogId}`,
+            `${API_BASE_URL}/blog/update-status${blogId}`,
             { status },
             {
               withCredentials: true,
