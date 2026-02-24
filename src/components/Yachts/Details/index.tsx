@@ -7,6 +7,7 @@ import YachtsUpdate from "./Update";
 import BreadCrum from "./BreadCrum";
 import { useSelector, useDispatch } from "react-redux";
 import { getYachtsById } from "@/lib/Features/Yachts/yachtsSlice";
+import { getTags } from "@/lib/Features/Tags/tagsSlice";
 import type { AppDispatch, RootState } from '@/lib/Store/store';
 
 interface VendorsProps {
@@ -22,6 +23,7 @@ const YachtsDetail: React.FC<VendorsProps> = ({ id }) => {
 
     useEffect(() => {
         dispatch(getYachtsById({ yachtsId: id as string }));
+        dispatch(getTags({ page: 1, limit: 1000 }));
     }, [id, dispatch]);
 
     useEffect(() => {

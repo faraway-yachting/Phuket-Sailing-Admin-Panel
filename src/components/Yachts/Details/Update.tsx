@@ -48,7 +48,7 @@ const YachtsUpdate: React.FC<CustomerProps> = ({ goToPrevTab, id }) => {
   const { allTags } = useSelector((state: RootState) => state.tags);
 
   useEffect(() => {
-    dispatch(getTags());
+    dispatch(getTags({ page: 1, limit: 1000 }));
   }, [dispatch]);
 
   // Close tags dropdown when clicking outside

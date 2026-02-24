@@ -55,13 +55,33 @@ const YachtsDetail = () => {
   const renderPagination = () => {
     if (totalPages <= 1) return null;
     const pages: (number | string)[] = [];
-    if (totalPages <= 3) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      pages.push(1, "...", totalPages - 1, totalPages);
+      const nearStart = currentPages <= 4;
+      const nearEnd = currentPages >= totalPages - 3;
+
+      if (nearStart) {
+        // Show first 5, ellipsis, last 2
+        for (let i = 1; i <= 5; i++) pages.push(i);
+        pages.push("...");
+        pages.push(totalPages - 1, totalPages);
+      } else if (nearEnd) {
+        // Show first 2, ellipsis, last 5
+        pages.push(1, 2);
+        pages.push("...");
+        for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
+      } else {
+        // Middle: first 2, ellipsis, current-1, current, current+1, ellipsis, last 2
+        pages.push(1, 2);
+        pages.push("...");
+        pages.push(currentPages - 1, currentPages, currentPages + 1);
+        pages.push("...");
+        pages.push(totalPages - 1, totalPages);
+      }
     }
+
     return pages.map((p, index) => (
       <button
         key={index}

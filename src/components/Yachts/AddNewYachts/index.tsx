@@ -44,7 +44,7 @@ const AddNewYachts: React.FC = () => {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(getTags());
+    dispatch(getTags({ page: 1, limit: 1000 }));
   }, [dispatch]);
 
   useEffect(() => {
