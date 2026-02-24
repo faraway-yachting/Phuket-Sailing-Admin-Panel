@@ -35,16 +35,18 @@ const YachtsDetail = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getYachts({ page: currentPages, limit: itemsPerPage }));
-  }, [currentPages, itemsPerPage, dispatch]);
+    const delay = setTimeout(() => {
+      dispatch(getYachts({ page: currentPages, limit: itemsPerPage, search: searchTerm || undefined }));
+    }, 400);
+    return () => clearTimeout(delay);
+  }, [currentPages, itemsPerPage, dispatch, searchTerm]);
 
+  useEffect(() => {
+    setCurrentPages(1);
+  }, [searchTerm]);
 
-  const filteredData = allYachts
-    .filter(yachts =>
-      yachts?.title?.toLowerCase().includes(searchTerm.toLowerCase())
-    )
   const isFiltering = searchTerm.trim() !== '';
-  const currentItems = filteredData;
+  const currentItems = allYachts;
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {

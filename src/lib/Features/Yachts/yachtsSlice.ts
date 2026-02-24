@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 import API_BASE_URL from "@/lib/config/api";
 
 export interface AddYachtsPayload {
+  order?: number;
   boatType: string;
   price: string;
   capacity: string;
@@ -47,6 +48,7 @@ export interface AddYachtsPayload {
 
 export interface YachtsApiResponse {
   _id: string;
+  order?: number;
   boatType: string;
   title: string;
   description: string;
@@ -100,6 +102,7 @@ export interface Yachts extends YachtsApiResponse {
 interface GetYachtsParams {
   page: number;
   limit: number;
+  search?: string;
 }
 
 interface YachtsResponse {
@@ -182,11 +185,12 @@ export const getYachts = createAsyncThunk<
   { rejectValue: { error: { message: string } } }
 >(
   "yachts/getYachts",
-  async ({ page, limit }, { rejectWithValue }) => {
+  async ({ page, limit, search }, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
+      const query = search ? `&search=${encodeURIComponent(search)}` : '';
       const response = await axios.get(
-        `${API_BASE_URL}/yacht/all-yachts?page=${page}&limit=${limit}`,
+        `${API_BASE_URL}/yacht/all-yachts?page=${page}&limit=${limit}${query}`,
         {
           withCredentials: true,
           headers: {

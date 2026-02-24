@@ -62,6 +62,7 @@ export const NewYachtsData: NewYachtsFormSection[] = [
       { label: "40 To 60", type: "checkbox" },
       { label: "60 To 80", type: "checkbox" },
       { label: "> 80", type: "checkbox" },
+      { label: "Order", placeholder: "e.g,. 1", type: "number" },
       { label: "Title", placeholder: "e.g,. Luxury" },
       { label: "Length", placeholder: "e.g,. 35ft" },
       { label: "Cabins", placeholder: "e.g,. 1" },

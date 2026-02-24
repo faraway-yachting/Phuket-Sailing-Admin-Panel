@@ -170,6 +170,7 @@ const YachtsUpdate: React.FC<CustomerProps> = ({ goToPrevTab, id }) => {
   const formik = useFormik<FormYachtsUpdateValues>({
     enableReinitialize: true,
     initialValues: {
+      "Order": yachts?.order ?? ("" as unknown as number),
       "Boat Type": yachts?.boatType || "",
       Title: yachts?.title || "",
       Category: yachts?.price || "",
@@ -255,6 +256,7 @@ const YachtsUpdate: React.FC<CustomerProps> = ({ goToPrevTab, id }) => {
         const resultAction = await dispatch(
           updateYachts({
             payload: {
+              order: values["Order"] ? Number(values["Order"]) : undefined,
               boatType: values["Boat Type"] ?? "",
               price: values["Category"] ?? "",
               capacity: values["Capacity"] ?? "",
@@ -348,6 +350,7 @@ const YachtsUpdate: React.FC<CustomerProps> = ({ goToPrevTab, id }) => {
                     "";
                   const isDropdown = field.type === "dropdown";
                   const isNumber = [
+                    "Order",
                     "Length",
                     "Cabins",
                     "Bathrooms",

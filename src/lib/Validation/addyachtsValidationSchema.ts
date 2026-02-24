@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 export const yachtsvalidationSchema = Yup.object().shape({
+  "Order": Yup.number().nullable().transform((value) => isNaN(value) ? undefined : value),
   "Title": Yup.string().required("Title is required"),
   "Boat Type": Yup.string().required("Boat Type is required"),
   "Category": Yup.string().required("Category is required"),
@@ -74,6 +75,7 @@ export const yachtsvalidationSchema = Yup.object().shape({
 
 
 export const yachtsUpdateValidationSchema = Yup.object().shape({
+  "Order": Yup.number().nullable().transform((value) => isNaN(value) ? undefined : value),
   "Title": Yup.string().required("Title is required"),
   "Boat Type": Yup.string().required("Boat Type is required"),
   "Category": Yup.string().required("Category is required"),

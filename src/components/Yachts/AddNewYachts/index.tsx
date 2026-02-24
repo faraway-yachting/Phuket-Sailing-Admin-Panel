@@ -129,6 +129,7 @@ const AddNewYachts: React.FC = () => {
 
   const formik = useFormik<FormYachtsValues>({
     initialValues: {
+      "Order": "" as unknown as number,
       "Boat Type": "",
       Title: "",
       Category: "",
@@ -220,6 +221,7 @@ const AddNewYachts: React.FC = () => {
         }
         const resultAction = await dispatch(
           addYachts({
+            order: values["Order"] ? Number(values["Order"]) : undefined,
             boatType: values["Boat Type"] ?? "",
             price: values["Category"] ?? "",
             capacity: values["Capacity"] ?? "",
@@ -311,7 +313,7 @@ const AddNewYachts: React.FC = () => {
                     formik.values[field.label as keyof typeof formik.values] ??
                     "";
                   const isDropdown = field.type === "dropdown";
-                  const isNumber = ["Length", "Cabins", "Bathrooms", "Passenger Day Trip", "Passenger Overnight", "Guests", "Day Trip Price", "Overnight Price", "Daytrip Price (Euro)", "Built", "Cruising Speed", "Length Overall", "Fuel Capacity", "Water Capacity"].includes(field.label);
+                  const isNumber = ["Order", "Length", "Cabins", "Bathrooms", "Passenger Day Trip", "Passenger Overnight", "Guests", "Day Trip Price", "Overnight Price", "Daytrip Price (Euro)", "Built", "Cruising Speed", "Length Overall", "Fuel Capacity", "Water Capacity"].includes(field.label);
                   const isPrimaryUpload = field.label === "Primary Image";
                   const isFileUpload = field.label === "Gallery Images";
                   const isCheckbox = field.type === "checkbox";
